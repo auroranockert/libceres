@@ -55,8 +55,6 @@ module Ceres
 
             values, current_path = [], @data[name]['href']
 
-            puts "#{current_path.inspect}"
-
             while current_path
               current = self.connection.get(current_path).body
 

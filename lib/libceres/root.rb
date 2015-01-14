@@ -75,12 +75,21 @@ module Ceres
       end
     end
 
-    # Tournaments
+    crest_paginated :tournaments do |root, tournaments|
+      tournaments.map do |tournament|
+        Tournament.from_summary(root.connection, tournament)
+      end
+    end
 
     crest_accessor :server_version, name: 'serverVersion'
 
     # Wars
-    # Incursions
+
+    crest_paginated :incursions do |root, incursions|
+      incursions.map do |incursion|
+        Incursion.from_summary(root.connection, incursion)
+      end
+    end
 
     crest_accessor :service_status, name: 'serviceStatus'
     crest_accessor :user_counts, name: 'userCounts'

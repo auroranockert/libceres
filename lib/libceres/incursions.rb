@@ -11,29 +11,13 @@
 # Licence for the specific language governing permissions and limitations under
 # the Licence.
 
-require 'addressable/uri'
-
-require 'faraday'
-require 'faraday_middleware'
-
 module Ceres
-  def self.tranquility
-    Ceres::Root.from_url('http://public-crest.eveonline.com')
-  end
+  class Incursion < Ceres::CrestObject
+    crest_accessor :influence
+    crest_accessor :has_boss?, name: 'hasBoss'
+    crest_accessor :state
 
-  def self.singularity
-    Ceres::Root.from_url('http://public-crest-sisi.testeveonline.com')
+    crest_object :constellation, Ceres::Constellation
+    crest_object :staging_solar_system, Ceres::System, name: 'stagingSolarSystem'
   end
 end
-
-$LOAD_PATH.unshift("#{File.dirname(__FILE__)}")
-
-require 'libceres/crest_object'
-
-require 'libceres/root'
-require 'libceres/items'
-require 'libceres/market'
-require 'libceres/map'
-require 'libceres/alliances'
-require 'libceres/tournaments'
-require 'libceres/incursions'
