@@ -11,30 +11,22 @@
 # Licence for the specific language governing permissions and limitations under
 # the Licence.
 
-require 'addressable/uri'
-
-require 'faraday'
-require 'faraday_middleware'
-
 module Ceres
-  def self.tranquility
-    Ceres::Root.from_url('http://public-crest.eveonline.com')
+  class WarParty < Corporation
+    crest_accessor :isk_killed, name: 'iskKilled'
+    crest_accessor :ships_killed, name: 'shipsKilled'
   end
 
-  def self.singularity
-    Ceres::Root.from_url('http://public-crest-sisi.testeveonline.com')
+  class War < Ceres::CrestObject
+    crest_accessor :mutual?, name: 'mutual'
+    crest_accessor :ally_count, name: 'allyCount'
+    crest_accessor :open_for_allies?, name: 'openForAllies'
+
+    crest_date :time_declared, name: 'timeDeclared'
+    crest_date :time_started, name: 'timeStarted'
+    crest_date :time_finished, name: 'timeFinished'
+    
+    crest_object :aggressor, Ceres::WarParty
+    crest_object :defender, Ceres::WarParty
   end
 end
-
-$LOAD_PATH.unshift("#{File.dirname(__FILE__)}")
-
-require 'libceres/crest_object'
-
-require 'libceres/root'
-require 'libceres/items'
-require 'libceres/market'
-require 'libceres/map'
-require 'libceres/alliances'
-require 'libceres/tournaments'
-require 'libceres/incursions'
-require 'libceres/wars'

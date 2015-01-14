@@ -77,13 +77,17 @@ module Ceres
 
     crest_paginated :tournaments do |root, tournaments|
       tournaments.map do |tournament|
-        Tournament.from_summary(root.connection, tournament)
+        Tournament.from_summary(root.connection, tournament['href'])
       end
     end
 
     crest_accessor :server_version, name: 'serverVersion'
 
-    # Wars
+    crest_paginated :wars do |root, wars|
+      wars.map do |war|
+        War.from_summary(root.connection, war)
+      end
+    end
 
     crest_paginated :incursions do |root, incursions|
       incursions.map do |incursion|
@@ -94,7 +98,7 @@ module Ceres
     crest_accessor :service_status, name: 'serviceStatus'
     crest_accessor :user_counts, name: 'userCounts'
 
-    # Incursions
+    # Industry
 
     crest_paginated :market_types, name: 'marketTypes' do |root, market_types|
       market_types.map do |market_type|

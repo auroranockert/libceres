@@ -56,6 +56,7 @@ module Ceres
             values, current_path = [], @data[name]['href']
 
             while current_path
+              puts current_path.inspect
               current = self.connection.get(current_path).body
 
               values.concat(current['items'])
@@ -106,7 +107,8 @@ module Ceres
     end
 
     def url
-      Addressable::URI.parse(@data['href'])
+      puts @data['href']
+      Addressable::URI.parse(@data['href']) if @data['href']
     end
 
     def reify!
@@ -118,7 +120,7 @@ module Ceres
     end
 
     def complete?
-      @data[:complete] == true || !@url
+      @data[:complete] == true || !self.url
     end
 
     def inspect
