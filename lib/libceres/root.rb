@@ -55,7 +55,11 @@ module Ceres
       end
     end
 
-    # Market Prices
+    crest_paginated :market_prices, name: 'marketPrices' do |root, prices|
+      prices.map do |price|
+        MarketPrice.from_summary(root.connection, price)
+      end
+    end
 
     crest_paginated :item_categories, name: 'itemCategories' do |root, categories|
       categories.map do |category|

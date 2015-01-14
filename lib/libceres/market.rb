@@ -12,12 +12,18 @@
 # the Licence.
 
 module Ceres
-  class MarketType < Ceres::CrestObject; end
   class MarketGroup < Ceres::CrestObject; end
 
-  class MarketType
+  class MarketPrice < Ceres::CrestObject
+    crest_accessor :adjusted_price, name: 'adjustedPrice'
+    crest_accessor :average_price, name: 'averagePrice'
+
     crest_object :type, Ceres::Type
-    crest_object :market_group, Ceres::Category, name: 'marketGroup'
+  end
+
+  class MarketType < Ceres::CrestObject
+    crest_object :type, Ceres::Type
+    crest_object :market_group, Ceres::MarketGroup, name: 'marketGroup'
   end
 
   class MarketGroup
