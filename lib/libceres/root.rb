@@ -98,7 +98,9 @@ module Ceres
     crest_accessor :service_status, name: 'serviceStatus'
     crest_accessor :user_counts, name: 'userCounts'
 
-    # Industry
+    crest_accessor :industry do |root, industry|
+      Industry.from_summary(root.connection, industry)
+    end
 
     crest_paginated :market_types, name: 'marketTypes' do |root, market_types|
       market_types.map do |market_type|
